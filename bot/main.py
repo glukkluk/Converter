@@ -1,12 +1,15 @@
 import asyncio
 import logging
-
 import betterlogging as bl
 
 from aiogram import Bot, Dispatcher
+from aiogram.fsm.storage.memory import MemoryStorage
+
+from aiogram_dialog import setup_dialogs
 
 from config import Config, load_config
 from handlers.user import router as user_router
+from dialogs import dialogs_list
 
 
 config: Config = load_config("bot/.env")
@@ -48,11 +51,14 @@ async def main():
     setup_logging()
 
     bot: Bot = Bot(config.bot.token)
-    dp = Dispatcher()
+    dp = Dispatcher(storage=MemoryStorage())
 
-    dp.include_router(
+    dp.include_routers(
         user_router,
+        *dialogs_list
     )
+
+    setup_dialogs(dp)
 
     await dp.start_polling(bot)
 
