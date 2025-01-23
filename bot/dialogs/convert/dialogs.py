@@ -13,7 +13,7 @@ convert_dialog = Dialog(
         Const("Надішліть зображення (бажано як файл)"),
         MessageInput(
             func=image_handler,
-            content_types=[ContentType.PHOTO],
+            content_types=[ContentType.DOCUMENT, ContentType.PHOTO],
         ),
         state=ConvertSG.convert_st,
     ),

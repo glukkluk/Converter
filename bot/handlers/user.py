@@ -1,4 +1,4 @@
-from aiogram import Router, F
+from aiogram import Router
 from aiogram.types import Message
 from aiogram.filters import CommandStart, Command
 
@@ -17,7 +17,3 @@ async def bot_start(message: Message, dialog_manager: DialogManager):
 @router.message(Command("convert"))
 async def convert(message: Message, dialog_manager: DialogManager):
     await dialog_manager.start(ConvertSG.convert_st, mode=StartMode.RESET_STACK)
-
-@router.message(F.document)
-async def not_defined(message: Message):
-    pass

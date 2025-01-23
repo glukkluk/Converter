@@ -46,17 +46,13 @@ def setup_logging():
     logger.info("Starting bot")
 
 
-
 async def main():
     setup_logging()
 
     bot: Bot = Bot(config.bot.token)
     dp = Dispatcher(storage=MemoryStorage())
 
-    dp.include_routers(
-        user_router,
-        *dialogs_list
-    )
+    dp.include_routers(user_router, *dialogs_list)
 
     setup_dialogs(dp)
 
