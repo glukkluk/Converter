@@ -1,19 +1,15 @@
 from aiogram import Router
 from aiogram.types import Message
-from aiogram.filters import CommandStart, Command
+from aiogram.filters import CommandStart
 
 from aiogram_dialog import DialogManager, StartMode
 
-from states.user import StartSG, ConvertSG
+from states.user import StartSG
 
 router = Router()
 
 
 @router.message(CommandStart())
 async def bot_start(message: Message, dialog_manager: DialogManager):
-    await dialog_manager.start(StartSG.start_st, mode=StartMode.RESET_STACK)
+    await dialog_manager.start(state=StartSG.start_st, mode=StartMode.RESET_STACK)
 
-
-@router.message(Command("convert"))
-async def convert(message: Message, dialog_manager: DialogManager):
-    await dialog_manager.start(ConvertSG.convert_st, mode=StartMode.RESET_STACK)

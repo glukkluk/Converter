@@ -6,4 +6,5 @@ class StartSG(StatesGroup):
 
 
 class ConvertSG(StatesGroup):
-    convert_st = State()
+    image_input_st = State()
+    select_format_st = State()

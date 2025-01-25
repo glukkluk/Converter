@@ -4,6 +4,8 @@ import betterlogging as bl
 
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
+from aiogram.client.default import DefaultBotProperties
+from aiogram.enums import ParseMode
 
 from aiogram_dialog import setup_dialogs
 
@@ -49,7 +51,10 @@ def setup_logging():
 async def main():
     setup_logging()
 
-    bot: Bot = Bot(config.bot.token)
+    bot: Bot = Bot(
+        config.bot.token,
+        default=DefaultBotProperties(parse_mode=ParseMode.HTML),
+    )
     dp = Dispatcher(storage=MemoryStorage())
 
     dp.include_routers(user_router, *dialogs_list)
