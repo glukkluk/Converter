@@ -9,7 +9,7 @@ from aiogram_dialog.widgets.input import MessageInput
 
 from states.user import ConvertSG
 
-from .handlers import image_handler, convert
+from .handlers import image_handler, converting
 from .getters import get_photo_conversion_formats
 
 
@@ -34,7 +34,7 @@ convert_dialog = Dialog(
         Button(
             text=Const("Конвертувати"),
             id="run_conversion",
-            on_click=convert,
+            on_click=converting,
         ),
         state=ConvertSG.select_format_st,
         getter=get_photo_conversion_formats

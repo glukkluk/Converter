@@ -9,6 +9,8 @@ from aiogram_dialog.widgets.input import MessageInput
 
 from states.user import ConvertSG
 
+from functional import convert_image
+
 
 async def image_handler(
     message: Message, widget: MessageInput, dialog_manager: DialogManager, **kwargs
@@ -18,22 +20,32 @@ async def image_handler(
 
     match message.content_type:
         case ContentType.DOCUMENT:
+            filename = message.document.file_name
+
+            dialog_manager.dialog_data.update(filename=filename, is_file=True)
+
             await message.bot.download(
                 file=message.document,
-                destination=os.path.join("bot/media", message.document.file_name),
+                destination=os.path.join("bot/media", filename),
             )
 
         case ContentType.PHOTO:
+            filename = f"{message.photo[-1].file_unique_id}.jpeg"
+
+            dialog_manager.dialog_data.update(filename=filename, is_file=False)
+
             await message.bot.download(
                 file=message.photo[-1],
-                destination=f"{os.path.join("bot/media", message.photo[-1].file_unique_id)}.jpg",
+                destination=os.path.join("bot/media", filename),
             )
 
     await dialog_manager.switch_to(ConvertSG.select_format_st, show_mode=ShowMode.SEND)
 
 
-async def convert(
+async def converting(
     callback: CallbackQuery, widget: Button, dialog_manager: DialogManager, **kwargs
 ):
     image_format = dialog_manager.find("select_format").get_checked()
-    print(image_format)
+    image_path = f"bot/media/{dialog_manager.dialog_data.get("filename")}"
+
+    convert_image(path=image_path, new_format=image_format)
