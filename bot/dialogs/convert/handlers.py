@@ -22,7 +22,7 @@ async def image_handler(
         case ContentType.DOCUMENT:
             filename = message.document.file_name
 
-            dialog_manager.dialog_data.update(filename=filename, is_file=True)
+            dialog_manager.dialog_data.update(filename=filename)
 
             await message.bot.download(
                 file=message.document,
@@ -32,7 +32,7 @@ async def image_handler(
         case ContentType.PHOTO:
             filename = f"{message.photo[-1].file_unique_id}.jpeg"
 
-            dialog_manager.dialog_data.update(filename=filename, is_file=False)
+            dialog_manager.dialog_data.update(filename=filename)
 
             await message.bot.download(
                 file=message.photo[-1],
@@ -49,3 +49,9 @@ async def converting(
     image_path = f"bot/media/{dialog_manager.dialog_data.get("filename")}"
 
     convert_image(path=image_path, new_format=image_format)
+
+    dialog_manager.dialog_data.update(
+        image_path=f"{os.path.splitext(image_path)[0]}.{image_format.lower()}"
+    )
+
+    await dialog_manager.switch_to(ConvertSG.upload_photo_st, show_mode=ShowMode.SEND)

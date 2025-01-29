@@ -6,11 +6,12 @@ from aiogram_dialog import Dialog, Window
 from aiogram_dialog.widgets.text import Const, Format
 from aiogram_dialog.widgets.kbd import Button, Radio
 from aiogram_dialog.widgets.input import MessageInput
+from aiogram_dialog.widgets.media import StaticMedia
 
 from states.user import ConvertSG
 
 from .handlers import image_handler, converting
-from .getters import get_photo_conversion_formats
+from .getters import get_photo_conversion_formats, get_photo_url
 
 
 convert_dialog = Dialog(
@@ -38,5 +39,14 @@ convert_dialog = Dialog(
         ),
         state=ConvertSG.select_format_st,
         getter=get_photo_conversion_formats
+    ),
+    Window(
+        Const("Конвертоване зображення"),
+        StaticMedia(
+            path=Format("{path}"),
+            type=ContentType.DOCUMENT,
+        ),
+        state=ConvertSG.upload_photo_st,
+        getter=get_photo_url
     )
 )
