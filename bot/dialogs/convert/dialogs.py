@@ -4,7 +4,7 @@ from aiogram.enums import ContentType
 
 from aiogram_dialog import Dialog, Window
 from aiogram_dialog.widgets.text import Const, Format
-from aiogram_dialog.widgets.kbd import Button, Radio
+from aiogram_dialog.widgets.kbd import Button, Radio, Checkbox
 from aiogram_dialog.widgets.input import MessageInput
 from aiogram_dialog.widgets.media import StaticMedia
 
@@ -31,6 +31,12 @@ convert_dialog = Dialog(
             id="select_format",
             item_id_getter=operator.itemgetter(0),
             items="formats",
+        ),
+        Checkbox(
+            checked_text=Const("✓ Зменшити розмір"),
+            unchecked_text=Const("Зменшити розмір"),
+            id="resize",
+            default=False,
         ),
         Button(
             text=Const("Конвертувати"),

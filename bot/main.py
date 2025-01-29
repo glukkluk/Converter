@@ -9,6 +9,8 @@ from aiogram.enums import ParseMode
 
 from aiogram_dialog import setup_dialogs
 
+import tinify
+
 from config import Config, load_config
 from handlers.user import router as user_router
 from dialogs import dialogs_list
@@ -50,6 +52,8 @@ def setup_logging():
 
 async def main():
     setup_logging()
+
+    tinify.key = config.misc.tinify_key
 
     bot: Bot = Bot(
         config.bot.token,

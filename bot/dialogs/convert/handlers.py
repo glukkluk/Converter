@@ -7,6 +7,8 @@ from aiogram_dialog import DialogManager, ShowMode
 from aiogram_dialog.widgets.kbd import Button, Radio
 from aiogram_dialog.widgets.input import MessageInput
 
+import tinify
+
 from states.user import ConvertSG
 
 from functional import convert_image
@@ -45,8 +47,18 @@ async def image_handler(
 async def converting(
     callback: CallbackQuery, widget: Button, dialog_manager: DialogManager, **kwargs
 ):
+
     image_format = dialog_manager.find("select_format").get_checked()
     image_path = f"bot/media/{dialog_manager.dialog_data.get("filename")}"
+
+    is_resize_image = dialog_manager.find("resize").is_checked()
+    
+    if is_resize_image:
+        source = tinify.from_file(image_path)
+        image_optimized_path = f"{os.path.splitext(image_path)[0]}_optimized.{image_format.lower()}"
+
+        source.to_file(f"{image_optimized_path}")
+        image_path = image_optimized_path
 
     convert_image(path=image_path, new_format=image_format)
 
