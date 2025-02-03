@@ -12,6 +12,8 @@ from aiogram_dialog import setup_dialogs
 import tinify
 
 from config import Config, load_config
+
+from handlers.bot_commands import BotCommands
 from handlers.user import router as user_router
 from dialogs import dialogs_list
 
@@ -60,6 +62,8 @@ async def main():
         default=DefaultBotProperties(parse_mode=ParseMode.HTML),
     )
     dp = Dispatcher(storage=MemoryStorage())
+
+    await bot.set_my_commands(commands=[BotCommands.start])
 
     dp.include_routers(user_router, *dialogs_list)
 
