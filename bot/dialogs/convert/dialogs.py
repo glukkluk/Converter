@@ -33,13 +33,13 @@ convert_dialog = Dialog(
             items="formats",
         ),
         Checkbox(
-            checked_text=Const("✓ Зменшити розмір"),
-            unchecked_text=Const("Зменшити розмір"),
+            checked_text=Const("✅ Стиснути"),
+            unchecked_text=Const("🚫 Стиснути"),
             id="resize",
             default=False,
         ),
         Button(
-            text=Const("Конвертувати"),
+            text=Const("♻ Конвертувати"),
             id="run_conversion",
             on_click=converting,
         ),
