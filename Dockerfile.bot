@@ -1,0 +1,9 @@
+FROM converter_base
+
+WORKDIR /converter
+
+COPY bot/ /converter/
+
+EXPOSE 5050
+
+CMD [ "uv", "run", "--no-dev", "main.py" ]

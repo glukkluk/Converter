@@ -16,3 +16,6 @@ dependencies = [
     "pydantic-settings>=2.8.1",
     "tinify>=1.6.0",
 ]
+
+[tool.uv.workspace]
+members = ["bot"]

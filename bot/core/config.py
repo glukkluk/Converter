@@ -16,13 +16,12 @@ class MiscConfig(BaseModel):
 
 
 class ApiConfig(BaseModel):
-    base_url: str = "http://127.0.0.1:8000/api/v1/"
+    base_url: str = "http://bot:8000/api/v1/"
 
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=BASE_DIR / ".env",
-        env_nested_delimiter="__"
+        env_file=BASE_DIR / ".env", env_nested_delimiter="__"
     )
 
     bot: BotConfig

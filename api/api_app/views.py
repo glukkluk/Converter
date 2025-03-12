@@ -19,3 +19,12 @@ class UserList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserDetail(APIView):
+    def get(self, request, user_id: int):
+        user = User.objects.filter(user_id=user_id).first()
+
+        serializer = UserSerializer(user)
+
+        return Response(serializer.data)
