@@ -11,16 +11,12 @@ from aiogram_dialog import setup_dialogs
 
 import tinify
 
-from config import Config, load_config
 
 from handlers.bot_commands import BotCommands
 from handlers.user import router as user_router
 from dialogs import dialogs_list
 
 from core.config import settings
-
-
-# config: Config = load_config("bot/.env")
 
 
 def setup_logging():
@@ -57,11 +53,9 @@ def setup_logging():
 async def main():
     setup_logging()
 
-    # tinify.key = config.misc.tinify_key
     tinify.key = settings.misc.tinify_api_key
 
     bot: Bot = Bot(
-        # config.bot.token,
         settings.bot.bot_token,
         default=DefaultBotProperties(parse_mode=ParseMode.HTML),
     )

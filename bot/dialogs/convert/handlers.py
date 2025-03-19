@@ -17,8 +17,8 @@ from functional import convert_image
 async def image_handler(
     message: Message, widget: MessageInput, dialog_manager: DialogManager, **kwargs
 ):
-    if not os.path.exists("bot/media"):
-        os.mkdir("bot/media")
+    if not os.path.exists("media"):
+        os.mkdir("media")
 
     match message.content_type:
         case ContentType.DOCUMENT:
@@ -28,7 +28,7 @@ async def image_handler(
 
             await message.bot.download(
                 file=message.document,
-                destination=os.path.join("bot/media", filename),
+                destination=os.path.join("media", filename),
             )
 
         case ContentType.PHOTO:
@@ -38,7 +38,7 @@ async def image_handler(
 
             await message.bot.download(
                 file=message.photo[-1],
-                destination=os.path.join("bot/media", filename),
+                destination=os.path.join("media", filename),
             )
 
     await dialog_manager.switch_to(ConvertSG.select_format_st, show_mode=ShowMode.SEND)
@@ -47,7 +47,7 @@ async def image_handler(
 async def converting(
     callback: CallbackQuery, widget: Button, dialog_manager: DialogManager, **kwargs
 ):
-    image_path = f"bot/media/{dialog_manager.dialog_data.get("filename")}"
+    image_path = f"media/{dialog_manager.dialog_data.get("filename")}"
     image_format = dialog_manager.find("select_format").get_checked()
 
     is_resize_image = dialog_manager.find("resize").is_checked()

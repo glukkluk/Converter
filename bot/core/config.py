@@ -16,7 +16,7 @@ class MiscConfig(BaseModel):
 
 
 class ApiConfig(BaseModel):
-    base_url: str = "http://bot:8000/api/v1/"
+    base_url: str = "http://api:8000/api/v1/"
 
 
 class Settings(BaseSettings):
