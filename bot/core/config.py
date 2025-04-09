@@ -13,6 +13,7 @@ class BotConfig(BaseModel):
 
 class MiscConfig(BaseModel):
     tinify_api_key: str
+    sentry_dsn: str
 
 
 class ApiConfig(BaseModel):

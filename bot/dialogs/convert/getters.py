@@ -5,6 +5,8 @@ async def get_photo_conversion_formats(dialog_manager: DialogManager, **kwargs):
     formats = [
         ("JPEG",),
         ("PNG",),
+        ("WEBP",),
+        ("ICO",),
     ]
 
     current_format = dialog_manager.dialog_data.get("filename").split(".")[-1].upper()

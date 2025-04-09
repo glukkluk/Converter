@@ -11,5 +11,6 @@ dependencies = [
     "pillow>=11.1.0",
     "pydantic>=2.10.6",
     "pydantic-settings>=2.8.1",
+    "sentry-sdk>=2.25.1",
     "tinify>=1.6.0",
 ]

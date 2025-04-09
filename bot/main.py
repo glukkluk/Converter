@@ -1,22 +1,22 @@
 import asyncio
 import logging
+
 import betterlogging as bl
-
-from aiogram import Bot, Dispatcher
-from aiogram.fsm.storage.memory import MemoryStorage
-from aiogram.client.default import DefaultBotProperties
-from aiogram.enums import ParseMode
-
-from aiogram_dialog import setup_dialogs
-
+import sentry_sdk
 import tinify
 
+from aiogram import Bot, Dispatcher
+from aiogram.client.default import DefaultBotProperties
+from aiogram.enums import ParseMode
+from aiogram.fsm.storage.memory import MemoryStorage
+from aiogram_dialog import setup_dialogs
 
-from handlers.bot_commands import BotCommands
-from handlers.user import router as user_router
-from dialogs import dialogs_list
+from sentry_sdk.integrations.aiohttp import AioHttpIntegration
 
 from core.config import settings
+from dialogs import dialogs_list
+from handlers.bot_commands import BotCommands
+from handlers.user import router as user_router
 
 
 def setup_logging():
@@ -39,6 +39,12 @@ def setup_logging():
     Example usage:
         setup_logging()
     """
+    sentry_sdk.init(
+        dsn=settings.misc.sentry_dsn,
+        send_default_pii=True,
+        integrations=[AioHttpIntegration()],
+    )
+
     log_level = logging.INFO
     bl.basic_colorized_config(level=log_level)
 

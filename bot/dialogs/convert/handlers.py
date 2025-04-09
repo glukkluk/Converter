@@ -4,7 +4,7 @@ from aiogram.types import Message, CallbackQuery
 from aiogram.enums import ContentType
 
 from aiogram_dialog import DialogManager, ShowMode
-from aiogram_dialog.widgets.kbd import Button, Radio
+from aiogram_dialog.widgets.kbd import Button
 from aiogram_dialog.widgets.input import MessageInput
 
 import tinify
@@ -47,7 +47,7 @@ async def image_handler(
 async def converting(
     callback: CallbackQuery, widget: Button, dialog_manager: DialogManager, **kwargs
 ):
-    image_path = f"media/{dialog_manager.dialog_data.get("filename")}"
+    image_path = f"media/{dialog_manager.dialog_data.get('filename')}"
     image_format = dialog_manager.find("select_format").get_checked()
 
     is_resize_image = dialog_manager.find("resize").is_checked()
