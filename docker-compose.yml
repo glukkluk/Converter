@@ -1,0 +1,29 @@
+services:
+    bot:
+        build:
+            context: ./bot
+            dockerfile: Dockerfile
+        # restart: always
+        env_file:
+            - ./bot/.env
+        volumes:
+            - ./bot:/bot
+        depends_on:
+            - api
+        networks:
+            - my-network
+
+    api:
+        build:
+            context: ./api
+            dockerfile: Dockerfile
+        # restart: always
+        volumes:
+            - ./api:/api
+        ports:
+            - "8000:8000"
+        networks:
+            - my-network
+
+networks:
+    my-network:
